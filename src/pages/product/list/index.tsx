@@ -3,6 +3,8 @@ import { getProductList } from '@apis/product'
 import { useQuery } from '@tanstack/react-query'
 import ProductItem from '@components/product-item'
 
+import styles from './list.module.scss'
+
 const ProductListPage = () => {
   const { data } = useQuery({
     queryKey: ['list'],
@@ -12,7 +14,7 @@ const ProductListPage = () => {
   if (!data) return null
   return (
     <div>
-      <ul>
+      <ul className={styles['product-list']}>
         {data.map(item => (
           <ProductItem key={item.id} item={item} />
         ))}
