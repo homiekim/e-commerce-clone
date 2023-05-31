@@ -1,7 +1,16 @@
-import React, { Suspense } from 'react'
-import { Outlet } from 'react-router-dom'
+import React, { Suspense, useEffect } from 'react'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 
 const App = () => {
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    if (pathname === '/' && !sessionStorage.getItem('item')) {
+      sessionStorage.setItem('item', 'test')
+      navigate('/product/list')
+    }
+  }, [])
   return (
     <div>
       <h1>test</h1>
