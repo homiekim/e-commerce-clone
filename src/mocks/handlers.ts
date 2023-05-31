@@ -2,7 +2,7 @@ import { rest } from 'msw'
 
 export const handlers = [
   rest.get('/list', (_, res, ctx) => {
-    const list = sessionStorage.getItem('item')
+    const list = sessionStorage.getItem('items')
     const items = (JSON.parse(list as string) as Array<Product>).map(item => {
       const { id, name, price, imageUrl, isSoldOut } = item
       return {
@@ -16,9 +16,7 @@ export const handlers = [
 
     return res(
       ctx.status(200),
-      ctx.json({
-        list: items,
-      }),
+      ctx.json(items),
     )
   }),
 ]

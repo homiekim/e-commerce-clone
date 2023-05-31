@@ -5,6 +5,8 @@ import router from '@routes/index.tsx'
 import { worker } from 'mocks/worker'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
+import 'global.scss'
+
 if (process.env.NODE_ENV === 'development') {
   worker.start()
 }

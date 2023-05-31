@@ -10,3 +10,5 @@ interface Product {
   seller: string
   size?: Array<sizeType> | string
 }
+
+type ProductListType = Omit<Product, 'size' | 'description' | 'seller'>

@@ -7,18 +7,18 @@ const App = () => {
   const { pathname } = useLocation()
 
   useEffect(() => {
-    if (pathname === '/' && !sessionStorage.getItem('item')) {
-      sessionStorage.setItem('item', JSON.stringify(getDummyProductList()))
-      navigate('/product/list')
+    if (pathname === '/' && !sessionStorage.getItem('items')) {
+      sessionStorage.setItem('items', JSON.stringify(getDummyProductList()))
     }
+    navigate('/product/list')
   }, [])
   return (
-    <div>
+    <main>
       <h1>test</h1>
       <Suspense fallback={'로딩'}>
         <Outlet />
       </Suspense>
-    </div>
+    </main>
   )
 }
 export default App
