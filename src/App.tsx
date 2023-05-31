@@ -1,3 +1,4 @@
+import { getDummyProductList } from '@utils/getDummyProductList'
 import React, { Suspense, useEffect } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 
@@ -7,7 +8,7 @@ const App = () => {
 
   useEffect(() => {
     if (pathname === '/' && !sessionStorage.getItem('item')) {
-      sessionStorage.setItem('item', 'test')
+      sessionStorage.setItem('item', JSON.stringify(getDummyProductList()))
       navigate('/product/list')
     }
   }, [])

@@ -2,7 +2,8 @@ import { rest } from 'msw'
 
 export const handlers = [
   rest.get('/list', (_, res, ctx) => {
-    const item = sessionStorage.getItem('item')
+    const list = sessionStorage.getItem('item')
+    const item = JSON.parse(list!)
     return res(
       ctx.status(200),
       ctx.json({
