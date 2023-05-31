@@ -12,3 +12,9 @@ export const getProductDetail = async ({ id }: { id: number }): Promise<Product>
     })
     .then(res => res.data)
 }
+
+export const createProduct = async (product: Product) => {
+  return await axios.post('/create', {
+    ...product,
+  })
+}

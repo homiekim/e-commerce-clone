@@ -4,7 +4,7 @@ interface Product {
   name: string
   price: number
   imageUrl: string
-  isSoldOut: boolean 
+  isSoldOut: boolean
   /* detail */
   description: string
   seller: string
@@ -12,3 +12,5 @@ interface Product {
 }
 
 type ProductListType = Omit<Product, 'size' | 'description' | 'seller'>
+
+type UploadType = Omit<Product, 'id', 'isSoldOut'>

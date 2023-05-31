@@ -59,4 +59,12 @@ export const handlers = [
     }
     return res(ctx.status(200))
   }),
+
+  rest.post('/create', async (req, res, ctx) => {
+    const reqProduct = (await req.json()) as Product
+    const products = JSON.parse(sessionStorage.getItem('items') as string) as Array<Product>
+    const newProduct = { ...reqProduct, id: products.length + 1, isSoldOut: false }
+    sessionStorage.setItem('items', JSON.stringify([newProduct, ...products!]))
+    return res(ctx.status(200))
+  }),
 ]
