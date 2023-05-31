@@ -1,19 +1,32 @@
 import React from 'react'
 import { getProductDetail } from '@apis/product'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { useParams } from 'react-router-dom'
 
 import styles from './detail.module.scss'
 import Stock from '@components/stock'
 import Button from '@components/button'
+import { addCartItem, getCartList } from '@apis/cart'
 
 const ProductDetailPage = () => {
   const { id } = useParams()
+
   const { data } = useQuery({
     queryKey: ['product', 'detail', id],
     queryFn: () => getProductDetail({ id: Number(id) }),
   })
-  console.log(data)
+  const { data: cartList } = useQuery({
+    queryKey: ['cart', 'list'],
+    queryFn: () => getCartList(),
+  })
+
+  const { mutate: addCart } = useMutation({
+    mutationFn: () => addCartItem({ id: Number(id) }),
+    onSuccess: () => {
+      alert('장바구니에 추가 되었습니다.')
+    },
+  })
+  console.log(cartList)
   if (!data) return null
   return (
     <div className={styles.layout}>
@@ -22,7 +35,12 @@ const ProductDetailPage = () => {
         <Stock isSoldOut={data.isSoldOut} />
         <h3 style={{ margin: '16px 0px' }}>{data.name}</h3>
         <span>{data.price} ₩</span>
-        <Button style={{ width: '100%', margin: '24px 0px' }} text="Add Cart" />
+        <Button
+          style={{ width: '100%', margin: '24px 0px' }}
+          text={'Add Cart'}
+          onClick={() => addCart()}
+          disabled={cartList?.includes(Number(id))}
+        />
         <span>Size : </span>
         {Array.isArray(data.size) ? (
           <ul className={styles['size-list']}>
