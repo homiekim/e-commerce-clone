@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './product.module.scss'
 import { useNavigate } from 'react-router-dom'
+import Stock from '@components/stock'
 
 interface Props {
   item: ProductListType
@@ -14,6 +15,7 @@ const ProductItem = ({ item }: Props) => {
         <span style={{ fontSize: 18 }}>{item.name}</span>
         <span>{item.price} ₩</span>
       </div>
+      <Stock isSoldOut={item.isSoldOut} />
     </li>
   )
 }

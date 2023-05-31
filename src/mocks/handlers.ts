@@ -14,9 +14,12 @@ export const handlers = [
       }
     })
 
-    return res(
-      ctx.status(200),
-      ctx.json(items),
-    )
+    return res(ctx.status(200), ctx.json(items))
+  }),
+  rest.get('/detail', (req, res, ctx) => {
+    const id = parseInt(req.url.searchParams.get('id') as string)
+    const list = sessionStorage.getItem('items')
+    const item = (JSON.parse(list as string) as Array<Product>).find(item => item.id === id)
+    return res(ctx.status(200), ctx.json(item))
   }),
 ]
